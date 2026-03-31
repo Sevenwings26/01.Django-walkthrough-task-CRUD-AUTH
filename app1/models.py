@@ -1,0 +1,45 @@
+from django.db import models
+
+# Create your models here.
+class CompanyInfo(models.Model):
+    company_name = models.CharField(max_length=100)
+    company_logo = models.ImageField(upload_to='company_logo/', blank=True, null=True)
+    company_address = models.CharField(max_length=200)
+    company_email = models.EmailField()
+    company_phone = models.CharField(max_length=20)
+    opening_schedule = models.CharField(max_length=20, blank=True, null=True)
+    # social_links 
+    x_link = models.URLField(blank=True, null=True)
+    linkedin_link = models.URLField(blank=True, null=True)
+    facebook_link = models.URLField(blank=True, null=True)
+    instagram_link = models.URLField(blank=True, null=True)
+
+    class Meta:
+        # verbose_name = "Company Information"
+        verbose_name_plural = "Company General Info"
+
+    def __str__(self):
+        return f"{self.company_name} - {self.company_email}"
+
+
+# Service Model 
+class Service(models.Model):
+    service_icon = models.CharField(max_length=100)
+    service_title = models.CharField(max_length=100)
+    service_description = models.TextField()
+    service_body = models.TextField()
+
+    def __str__(self):
+        return self.service_title
+    
+
+# Testimonial Model
+class Testimonial(models.Model):
+    client_photo = models.ImageField(upload_to='client_photos/', blank=True, null=True)
+    client_name = models.CharField(max_length=100)
+    client_position = models.CharField(max_length=100)
+    client_star_rating = models.IntegerField(blank=True, null=True)
+    testimonial_text = models.TextField()
+
+    def __str__(self):
+        return f"{self.client_name} - {self.client_position}"
