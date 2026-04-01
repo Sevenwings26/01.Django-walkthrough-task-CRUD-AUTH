@@ -64,6 +64,8 @@ class PortfolioItem(models.Model):
     def __str__(self):
         return self.item_title
 
+from ckeditor.fields import RichTextField
+
 # Or 
 class ProductItem(models.Model):
     # Select field for product category
@@ -73,12 +75,19 @@ class ProductItem(models.Model):
         ('branding', 'Branding'),
         ('products', 'Products'),
     ]
-
     item_category = models.CharField(max_length=20, choices=category_choice)
     item_title = models.CharField(max_length=100)
     item_image = models.ImageField(upload_to='portfolio_items/', blank=True, null=True)
     item_description = models.TextField()
+    # item_body = models.TextField(blank=True, null=True)
+    item_body = RichTextField(blank=True, null=True)
+
+    # client Info
+    item_client = models.CharField(max_length=100, blank=True, null=True)
+    item_delivery_date = models.DateField(blank=True, null=True, auto_created=True)
+    item_project_url = models.URLField(blank=True, null=True)  # for apps and website jobs...
 
     def __str__(self):
         return self.item_title
-    
+
+

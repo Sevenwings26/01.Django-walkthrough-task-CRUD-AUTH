@@ -388,7 +388,10 @@
               <div class="portfolio-content h-100">
                 <a href="{{ item.item_image.url }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ item.item_image.url }}" class="img-fluid" alt=""></a>
                 <div class="portfolio-info">
-                  <h4><a href="portfolio-details.html" title="More Details">{{ item.item_title }}</a></h4>
+                  <h4>
+                    <a href="{% url 'portfolio_detail' item.id %}" title="More Details">{{ item.item_title }}</a>
+                  
+                  </h4>
                   <p>{{ item.item_description }}</p>
                 </div>
               </div>

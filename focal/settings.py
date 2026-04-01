@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # created apps 
     'app1',
     'blog',
+
+    # 'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,18 @@ STATICFILES_DIRS = [BASE_DIR, 'static']
 import os
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Optional: CKEditor configuration
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+    },
+}
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+INSTALLED_APPS += ['ckeditor_uploader']
+
+CKEDITOR_CONFIGS['default']['toolbar'] = 'full'
+

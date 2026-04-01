@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import CompanyInfo, Service, Testimonial, ProductItem
 # Create your views here.
 
@@ -33,6 +33,23 @@ def home(requests):
     return render(requests, 'index.html', context)
 
 
+# Portfolio Details View - index.html, we will link each portfolio item to this view, and pass the id of the item as a parameter
+def portfolio_details(requests, pk):
+    portfolio_item = get_object_or_404(ProductItem, id=pk)
+
+    context = {
+        'portfolio_item': portfolio_item
+    }
+    return render(requests, 'portfolio_detail.html', context)
+
+
+# def portfolio_details(requests, pk):
+#     portfolio_item = ProductItem.objects.get(id=pk)
+
+#     context = {
+#         'portfolio_item': portfolio_item
+#     }
+#     return render(requests, 'portfolio_details.html', context)
 
 
 # def home(requests):
