@@ -43,3 +43,42 @@ class Testimonial(models.Model):
 
     def __str__(self):
         return f"{self.client_name} - {self.client_position}"
+
+
+# Portfolio/Products
+
+class PortfolioCategory(models.Model):
+    category_name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.category_name    
+    
+class PortfolioItem(models.Model):
+    # category = models.ForeignKey(PortfolioCategory, on_delete=models.CASCADE, related_name='portfolio_items')
+    # category = models.ForeignKey('PortfolioCategory', on_delete=models.CASCADE, related_name='portfolio_items')
+    category = models.ForeignKey(PortfolioCategory, on_delete=models.CASCADE)
+    item_title = models.CharField(max_length=100)
+    item_image = models.ImageField(upload_to='portfolio_items/', blank=True, null=True)
+    item_description = models.TextField()
+
+    def __str__(self):
+        return self.item_title
+
+# Or 
+class ProductItem(models.Model):
+    # Select field for product category
+    category_choice = [
+        ('books', 'Books'),
+        ('apps', 'Apps'),
+        ('branding', 'Branding'),
+        ('products', 'Products'),
+    ]
+
+    item_category = models.CharField(max_length=20, choices=category_choice)
+    item_title = models.CharField(max_length=100)
+    item_image = models.ImageField(upload_to='portfolio_items/', blank=True, null=True)
+    item_description = models.TextField()
+
+    def __str__(self):
+        return self.item_title
+    
