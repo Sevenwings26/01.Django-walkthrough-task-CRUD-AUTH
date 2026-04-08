@@ -22,8 +22,13 @@ class BlogPostCategory(models.Model):
     def __str__(self):
         return self.name
 
+import uuid   # 32-character hexadecimal string that is unique across all space and time, making it an ideal choice for primary keys in a database, especially in distributed systems where multiple instances of the application may be generating new records simultaneously.
+# e.g. 550e8400-e29b-41d4-a716-446655440000
 
 class BlogPost(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False) # using UUID as the primary key for the BlogPost model, which provides a unique identifier for each blog post and enhances security by making it harder to guess the IDs of other posts.
+    # id = models.BigAutoField(primary_key=True) # using BigAutoField as the primary key for the BlogPost model, which automatically increments the ID for each new blog post and allows for a larger range of IDs compared to the default AutoField.
+
     category = models.ForeignKey(BlogPostCategory, on_delete=models.CASCADE)   
 
     title = models.CharField(max_length=200)

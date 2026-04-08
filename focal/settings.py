@@ -24,8 +24,9 @@ SECRET_KEY = 'django-insecure-ja47enj%-_%+tc%upboe%y*^1h55%wva_i_mrdvo@8kxv%+)jb
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,6 +82,16 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+
+        # 'ENGINE': 'django.db.backends.mysql', 
+        # 'NAME': 'mydb',                       
+        # 'USER': 'myuser',                      
+        # 'PASSWORD': 'mypassword',              
+        # 'HOST': 'localhost',                   
+        # 'PORT': '3306',                        
+        # 'OPTIONS': {
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        # }
     }
 }
 

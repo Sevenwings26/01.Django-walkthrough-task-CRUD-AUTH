@@ -21,13 +21,21 @@ class CompanyInfo(models.Model):
     def __str__(self):
         return f"{self.company_name} - {self.company_email}"
 
+from django.utils.text import slugify
 
 # Service Model 
 class Service(models.Model):
     service_icon = models.CharField(max_length=100)
     service_title = models.CharField(max_length=100)
+    service_slug = models.SlugField(max_length=100, unique=True, blank=True, null=True)  # for URL routing and SEO purposes, allowing us to create user-friendly URLs based on the service title.
     service_description = models.TextField()
     service_body = models.TextField()
+    created_date = models.DateField(auto_now=True)
+
+    def save(self, *args, **kwargs):
+        if not self.service_slug:
+            self.service_slug = slugify(self.service_title)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.service_title

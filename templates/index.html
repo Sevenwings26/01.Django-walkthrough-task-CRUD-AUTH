@@ -262,7 +262,7 @@
                 </div>
                 <h3>{{offer.service_title}}</h3>
                 <p>{{offer.service_description | truncatechars:100}}</p>
-                <a href="service-details.html" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
+                <a href="{% url 'service_detail' offer.service_slug %}" class="readmore stretched-link">Read more <i class="bi bi-arrow-right"></i></a>
               </div>
             </div>
           {% endfor %}

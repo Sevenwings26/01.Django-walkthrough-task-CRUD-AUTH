@@ -63,3 +63,14 @@ def portfolio_details(requests, pk):
 #         'email':company_email,
 #     }
 #     return render(requests, 'index.html', context)
+
+
+# service detail page view
+def service_details(requests, s_slug):
+    service = get_object_or_404(Service, service_slug=s_slug)
+
+    context = {
+        'service': service
+    }
+    return render(requests, 'service/service_detail.html', context)
+
