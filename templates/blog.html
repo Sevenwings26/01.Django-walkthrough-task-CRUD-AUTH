@@ -18,6 +18,7 @@
           <ol>
             <li><a href="/">Home</a></li>
             <li class="current">Blog</li>
+            <li><a href="{% url 'blog-create' %}">Update</a></li>
           </ol>
         </div>
       </nav>
@@ -34,7 +35,11 @@
             <article>
 
               <div class="post-img">
+                {% if blog.image %}
                 <img src="{{ blog.image.url }}" alt="{{blog.title}}" class="img-fluid">
+                {% else %}
+                <img src="" alt="Not Available" class="img-fluid">
+                {% endif %}
               </div>
 
               <p class="post-category">{{ blog.category }}</p>
@@ -52,8 +57,8 @@
                   </p>
                 </div>
               </div>
-
             </article>
+            <a href="{% url 'blog-update' blog.id %}">Update blog</a>
           </div><!-- End post list item -->
           {% endfor %}
 
@@ -68,18 +73,23 @@
       <div class="container">
         <div class="d-flex justify-content-center">
           <ul>
-            <li><a href="#"><i class="bi bi-chevron-left"></i></a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#" class="active">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li>...</li>
-            <li><a href="#">10</a></li>
-            <li><a href="#"><i class="bi bi-chevron-right"></i></a></li>
-          </ul>
+            {% if blog_posts.has_previous %}
+              <a href="?page=1">First</a>
+              <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            {% endif %}
+
+            <span>Page {{ blog_posts.number }} of {{ blog_posts.paginator.num_pages }}</span>
+
+            {% if blog_posts.has_next %}
+                <a href="?page={{ blog_posts.next_page_number }}">Next</a>
+                <a href="?page={{ blog_posts.paginator.num_pages }}">Last</a>
+            {% endif %}
+          </ul> 
         </div>
       </div>
 
     </section><!-- /Blog Pagination Section -->
 
 {% endblock %}
+
+<!-- Types of Requests: Get -->

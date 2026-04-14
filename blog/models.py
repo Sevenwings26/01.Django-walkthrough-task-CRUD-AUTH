@@ -34,7 +34,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length=200)
     image = models.ImageField(upload_to='blogs/', blank=True, null=True)
     body = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)  # to connect a blog post to an authenticated user
+    # author = models.ForeignKey(User, on_delete=models.CASCADE)  # to connect a blog post to an authenticated user
     author = models.ForeignKey(AuthourProfile, on_delete=models.CASCADE, blank=True, null=True)  # using the author profile instead of the user model directly, to get data related to the author like profile picture and bio
 
     created_date = models.DateField(auto_now=True)
