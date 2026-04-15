@@ -55,7 +55,7 @@ def blog_create(request):
             return redirect('blog-index')
     else:
         form = BlogPostForm()
-    context = {'form':form}
+    context = {'form':form, 'title':'Create'}
     return render(request, 'blog/blog-create.html', context)
     
 
@@ -72,30 +72,39 @@ def blog_update(request, id):
     context = {
         'form':form,
         'blog_post':blog_post,
+        'title':'Update'
         }
     return render(request, 'blog/blog-create.html', context)
 
-
-
-# CREATE & UPDATE (Combined logic)
-def post_upsert(request, pk=None):
-    if pk:
-        post = get_object_or_404(models.BlogPost, pk=pk)
-        title = "Edit Post"
-    else:
-        post = models.BlogPost()
-        title = "New Post"
-
+def blog_delete(request, id):
+    blog_post = get_object_or_404(models.BlogPost, pk=id)
     if request.method == 'POST':
-        # request.FILES is mandatory for image uploads
-        form = BlogPostForm(request.POST, request.FILES, instance=post)
-        if form.is_valid():
-            form.save()
-            return redirect('post_list')
-    else:
-        form = BlogPostForm(instance=post)
+        blog_post.delete()
+        return redirect('blog-index')
+    return render(request, 'blog/blog-delete.html', {'blog_post':blog_post})
+
+
+
+
+# # CREATE & UPDATE (Combined logic)
+# def post_upsert(request, pk=None):
+#     if pk:
+#         post = get_object_or_404(models.BlogPost, pk=pk)
+#         title = "Edit Post"
+#     else:
+#         post = models.BlogPost()
+#         title = "New Post"
+
+#     if request.method == 'POST':
+#         # request.FILES is mandatory for image uploads
+#         form = BlogPostForm(request.POST, request.FILES, instance=post)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('post_list')
+#     else:
+#         form = BlogPostForm(instance=post)
     
-    return render(request, 'blog/post_form.html', {'form': form, 'title': title})
+#     return render(request, 'blog/post_form.html', {'form': form, 'title': title})
 
 
 

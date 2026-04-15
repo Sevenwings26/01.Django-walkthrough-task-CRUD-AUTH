@@ -1,7 +1,31 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import CompanyInfo, Service, Testimonial, ProductItem
 # Create your views here.
 
+
+# 15th April, 2026. 
+"""
+AUTHENTICATION PROCESSES
+1. Default Django Auth: It uses Django's in-built models and auth flow. It request for username and password
+2. Custom Auth -- i.e. You cna alter the Django's default flow, by using email over username... 
+"""
+
+from .forms import UserRegistrationForm
+from blog.models import AuthourProfile
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            # user = form.save()
+            form.save()
+            # Associate a user to the authorprofile 
+            # AuthourProfile.objects.create(user=user, bio='Update soon')
+
+            return redirect('home')
+    else:
+        form = UserRegistrationForm()
+    return render(request, 'auth/register.html', {'form':form})
 
 def home(requests):
     company_data = CompanyInfo.objects.first()  # Get you the first row in the DB

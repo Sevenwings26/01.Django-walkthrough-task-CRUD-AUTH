@@ -43,7 +43,11 @@ INSTALLED_APPS = [
     'blog',
 
     # 'ckeditor',
+    # using summernote 
+    'django_summernote',
 ]
+
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
