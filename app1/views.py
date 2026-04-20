@@ -12,6 +12,9 @@ AUTHENTICATION PROCESSES
 
 from .forms import UserRegistrationForm
 from blog.models import AuthourProfile
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
 
 def register_user(request):
     if request.method == 'POST':
@@ -26,6 +29,40 @@ def register_user(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'auth/register.html', {'form':form})
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
+
+def login_user(request):
+    if request.method == 'POST':
+        # AuthenticationForm is built into Django
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            
+            # Verify the user exists
+            user = authenticate(username=username, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect('home')
+            else:
+                messages.error(request, "Invalid username or password.")
+        else:
+            messages.error(request, "Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+        
+    return render(request, 'auth/login.html', {'form': form})
+
+
+def logout_user(request):
+    logout(request)
+    messages.info(request, "You have successfully logged out.")
+    return redirect('login')
+
 
 def home(requests):
     company_data = CompanyInfo.objects.first()  # Get you the first row in the DB
