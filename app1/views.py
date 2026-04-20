@@ -25,7 +25,7 @@ def register_user(request):
             # Associate a user to the authorprofile 
             # AuthourProfile.objects.create(user=user, bio='Update soon')
 
-            return redirect('home')
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'auth/register.html', {'form':form})
